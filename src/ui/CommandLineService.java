@@ -11,7 +11,7 @@ public class CommandLineService {
     private ContactService contactService = new ContactService();
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public void run() throws IOException {
+    void run() throws IOException {
         String input;
 
         do {
@@ -19,7 +19,9 @@ public class CommandLineService {
             input = br.readLine();
             switch (input) {
                 case "1":
-                    contactService.createContact();
+                    String firstName = readField("First Name");
+                    String lastName = readField("Last Name");
+                    contactService.createContact(firstName, lastName);
                     break;
                 case "2":
                     contactService.modifyContact();
@@ -30,14 +32,16 @@ public class CommandLineService {
                 case "4":
                     contactService.showContact();
                     break;
-
+                default:
+                    System.out.println("Incorrect value. Please enter value 0-4");
+                    break;
             }
             System.out.println(input);
         }
         while (!input.equals("0"));
     }
 
-    public void showMenu() {
+    private void showMenu() {
         System.out.println("Menu");
         System.out.println("1. Create contact");
         System.out.println("2. Modify Contact");
@@ -46,5 +50,12 @@ public class CommandLineService {
         System.out.println("0. Exit");
     }
 
-
+    String readField(String fieldName) throws IOException {
+        String field;
+        do {
+            System.out.print(fieldName);
+            field = br.readLine();
+        } while (field.trim().isEmpty());
+        return field.trim();
+    }
 }
