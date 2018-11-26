@@ -1,26 +1,49 @@
 package services;
 
-import dao.SaveContactDao;
+import dao.ContactDao;
 import model.Contact;
 
 public class ContactService {
-    private SaveContactDao dao = new SaveContactDao();
+    private ContactDao dao = new ContactDao();
 
     public void createContact(String firstName, String lastName) {
-        System.out.println("Create contact");
-        Contact contact = new Contact(firstName, lastName);
-        dao.saveContact(contact);
+        dao.saveContact(new Contact(firstName, lastName));
     }
 
-    public void modifyContact() {
+    public void modifyContact(String name, String newFirstName, String newLastName) {
         System.out.println("Modify contact");
+        dao.modifyByName(name, newFirstName, newLastName);
     }
 
-    public void deleteContact() {
-        System.out.println("Delete contact");
+    public void deleteByName(String name) {
+        dao.deleteByName(name);
     }
 
-    public void showContact() {
-        System.out.println("Show contact");
+    public Contact[] getContactsByName(String name) {
+        Contact[] allContacts = dao.getAll();
+
+        for (int i = 0; i < allContacts.length; i++) {
+            Contact contact = allContacts[i];
+            if (contact != null
+                    && !contact.getFirstName().contains(name)
+                    && !contact.getLastName().contains(name)) {
+                allContacts[i] = null;
+            }
+        }
+        return allContacts;
+    }
+
+    public void showAllContacts() {
+        Contact[] allContacts = dao.getAll();
+        if (allContacts.length == 0) {
+            System.out.println("There are no contacts");
+            return;
+        }
+        for (int i = 0; i < allContacts.length; i++) {
+            Contact currentContact = allContacts[i];
+            if (currentContact != null) {
+                System.out.println(allContacts[i]);
+            }
+        }
     }
 }

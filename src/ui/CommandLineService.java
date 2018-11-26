@@ -1,5 +1,6 @@
 package ui;
 
+import model.Contact;
 import services.ContactService;
 
 import java.io.BufferedReader;
@@ -18,19 +19,19 @@ public class CommandLineService {
             showMenu();
             input = br.readLine();
             switch (input) {
+                case "0":
+                    break;
                 case "1":
-                    String firstName = readField("First Name");
-                    String lastName = readField("Last Name");
-                    contactService.createContact(firstName, lastName);
+                    showCreateMenu();
                     break;
                 case "2":
-                    contactService.modifyContact();
+                    modifyContact();
                     break;
                 case "3":
-                    contactService.deleteContact();
+                    deleteContact();
                     break;
                 case "4":
-                    contactService.showContact();
+                    contactService.showAllContacts();
                     break;
                 default:
                     System.out.println("Incorrect value. Please enter value 0-4");
@@ -50,12 +51,52 @@ public class CommandLineService {
         System.out.println("0. Exit");
     }
 
-    String readField(String fieldName) throws IOException {
+    String readLine(String message) throws IOException {
         String field;
         do {
-            System.out.print(fieldName);
+            System.out.print(message);
             field = br.readLine();
         } while (field.trim().isEmpty());
         return field.trim();
+    }
+
+    private void showCreateMenu() throws IOException {
+        String firstName = readLine("First Name: ");
+        String lastName = readLine("Last Name: ");
+        contactService.createContact(firstName, lastName);
+    }
+
+    private void deleteContact() throws IOException {
+        String name = readLine("Name: ");
+        contactService.deleteByName(name);
+    }
+
+    private void modifyContact() throws IOException {
+        String name = readLine("Name: ");
+        Contact[] contacts = contactService.getContactsByName(name);
+        if (areContactsEmpty(contacts)) {
+            System.out.println("No contacts found");
+            return;
+        }
+        for (Contact contact : contacts) {
+            if (contact != null) {
+                System.out.println("Found contact:");
+                System.out.println(contact);
+                System.out.println();
+            }
+        }
+        String newFirstName = readLine("New First Name: ");
+        String newLastName = readLine("New Last Name: ");
+        contactService.modifyContact(name, newFirstName, newLastName);
+    }
+
+    private boolean areContactsEmpty(Contact[] contacts) {
+        int i = 0;
+        for (Contact contact : contacts) {
+            if (contact == null) {
+                i++;
+            }
+        }
+        return contacts.length == i;
     }
 }
