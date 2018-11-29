@@ -63,6 +63,8 @@ public class CommandLineService {
     private void showCreateMenu() throws IOException {
         String firstName = readLine("First Name: ");
         String lastName = readLine("Last Name: ");
+        String age = readLine ("Age: ");
+        Integer age = new Integer (readline());
         contactService.createContact(firstName, lastName);
     }
 
