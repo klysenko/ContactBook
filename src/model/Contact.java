@@ -30,6 +30,14 @@ public class Contact {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    
+    public String getAge() {
+        return lastName;
+    }
+
+    public void setAge(String firstName) {
+        this.firstName = firstName;
+    }
 
 
     @Override
