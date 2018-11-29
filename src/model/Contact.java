@@ -2,13 +2,17 @@ package model;
 
 import java.util.Objects;
 
+
 public class Contact {
+    private int id;
     private String firstName;
     private String lastName;
+    private int age;
 
-    public Contact(String firstName, String lastName) {
+    public Contact(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
     }
 
     public String getFirstName() {
@@ -46,7 +50,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" +
+        return this.id+"Contact{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
