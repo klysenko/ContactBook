@@ -10,6 +10,7 @@ public class ContactDao {
     public void saveContact(Contact contact) {
         contact.setId(getNextId());
         store[count] = contact;
+        contact.setId(generator++);
         count++;
         System.out.println("Stored contact: " + contact.toString());
     }
