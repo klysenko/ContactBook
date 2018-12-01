@@ -3,24 +3,43 @@ package model;
 import java.util.Objects;
 
 public class Contact {
+    private int id;
     private String firstName;
     private String lastName;
+    private int age;
 
-    public Contact(String firstName, String lastName) {
+    public Contact(String firstName, String lastName, int age) {
+        this.age = age;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public void setLastName(String lastName) {
@@ -47,8 +66,10 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{" +
+                "id'" + id + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
                 '}';
     }
 }

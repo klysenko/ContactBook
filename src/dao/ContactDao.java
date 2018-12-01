@@ -2,15 +2,16 @@ package dao;
 
 import model.Contact;
 
-
 public class ContactDao {
+    private static int ID_GENERATOR = 0;
     private int count = 0;
     private Contact[] store = new Contact[10];
 
     public void saveContact(Contact contact) {
+        contact.setId(getNextId());
         store[count] = contact;
         count++;
-        System.out.println("Stored contact: " + contact);
+        System.out.println("Stored contact: " + contact.toString());
     }
 
     public Contact[] getAll() {
@@ -44,10 +45,14 @@ public class ContactDao {
                 continue;
             }
             if (contact.getFirstName().contains(name) || contact.getLastName().contains(name)) {
-               contact.setFirstName(newFirstName);
-               contact.setLastName(newLastName);
+                contact.setFirstName(newFirstName);
+                contact.setLastName(newLastName);
             }
         }
 
+    }
+
+    private int getNextId() {
+        return ID_GENERATOR++;
     }
 }

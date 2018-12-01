@@ -6,8 +6,8 @@ import model.Contact;
 public class ContactService {
     private ContactDao dao = new ContactDao();
 
-    public void createContact(String firstName, String lastName) {
-        dao.saveContact(new Contact(firstName, lastName));
+    public void createContact(String firstName, String lastName, int age) {
+        dao.saveContact(new Contact(firstName, lastName, age));
     }
 
     public void modifyContact(String name, String newFirstName, String newLastName) {

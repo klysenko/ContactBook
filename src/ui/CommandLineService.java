@@ -1,5 +1,7 @@
 package ui;
 
+import Validation.AgeValidator;
+import exceptions.InvalidAgeException;
 import model.Contact;
 import services.ContactService;
 
@@ -11,6 +13,7 @@ import java.io.InputStreamReader;
 public class CommandLineService {
     private ContactService contactService = new ContactService();
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private AgeValidator ageValidator = new AgeValidator();
 
     void run() throws IOException {
         String input;
@@ -61,9 +64,29 @@ public class CommandLineService {
     }
 
     private void showCreateMenu() throws IOException {
+
         String firstName = readLine("First Name: ");
         String lastName = readLine("Last Name: ");
-        contactService.createContact(firstName, lastName);
+
+        int age = readAge();
+        contactService.createContact(firstName, lastName, age);
+    }
+
+    private int readAge() {
+        try {
+            int age = new Integer(readLine("Input age: "));
+            ageValidator.validate(age);
+            return age;
+        } catch (NumberFormatException e) {
+            System.out.println("Wrong format!!!");
+            return readAge();
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+            return readAge();
+        } catch (IOException e) {
+            System.out.println("Failed to read file!");
+            return readAge();
+        }
     }
 
     private void deleteContact() throws IOException {
