@@ -11,9 +11,18 @@ import java.io.InputStreamReader;
 
 
 public class CommandLineService {
-    private ContactService contactService = new ContactService();
-    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+
+    private ContactService contactService;
+    private BufferedReader br;
+   // private ContactService contactService = new ContactService();
+   // private BufferedReader br = new BufferedReader(new InputStreamReader(System.in);
     private AgeValidator ageValidator = new AgeValidator();
+
+    public CommandLineService (ContactService contactService, BufferedReader br) {
+       this.contactService = contactService;
+       this.br = br;
+   }
 
     void run() throws IOException {
         String input;

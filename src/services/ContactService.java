@@ -1,10 +1,19 @@
 package services;
 
+import dao.impl.ContactArrayDao;
 import dao.ContactDao;
 import model.Contact;
 
 public class ContactService {
-    private ContactDao dao = new ContactDao();
+
+    private ContactDao dao;
+
+    //private ContactDao dao = new ContactArrayDao();
+
+
+    public ContactService(ContactDao dao) { this.dao = dao;}
+
+
 
     public void createContact(String firstName, String lastName, int age) {
         dao.saveContact(new Contact(firstName, lastName, age));
