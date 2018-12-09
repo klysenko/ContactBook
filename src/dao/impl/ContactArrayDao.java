@@ -3,6 +3,9 @@ package dao.impl;
 import dao.ContactDao;
 import model.Contact;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 public class ContactArrayDao implements ContactDao {
     private static int ID_GENERATOR = 0;
     private int count = 0;
@@ -17,13 +20,13 @@ public class ContactArrayDao implements ContactDao {
     }
 
     @Override
-    public Contact[] getAll() {
-        if (count == 0) {
-            return new Contact [count];
-        }
-        Contact[] storeCopy = new Contact[store.length];
+    public Collection<Contact> getAll() {
+      //  if  {
+      //      return new Contact[];
+      //  }
+        Contact [] storeCopy = new Contact[store.length];
         System.arraycopy(store, 0, storeCopy, 0, store.length);
-        return storeCopy;
+        return Arrays.asList(storeCopy);
     }
 
     @Override

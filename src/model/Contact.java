@@ -14,6 +14,8 @@ public class Contact {
         this.lastName = lastName;
     }
 
+
+
     public int getId() {
         return id;
     }

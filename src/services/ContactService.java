@@ -29,7 +29,7 @@ public class ContactService {
     }
 
     public Contact[] getContactsByName(String name) {
-        Contact[] allContacts = dao.getAll();
+        Contact[] allContacts = dao.getAll().toArray(new Contact[0]);
 
         for (int i = 0; i < allContacts.length; i++) {
             Contact contact = allContacts[i];
@@ -43,7 +43,7 @@ public class ContactService {
     }
 
     public void showAllContacts() {
-        Contact[] allContacts = dao.getAll();
+        Contact[] allContacts = dao.getAll().toArray(new Contact[0]);
         if (allContacts.length == 0) {
             System.out.println("There are no contacts");
             return;

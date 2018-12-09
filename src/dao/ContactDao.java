@@ -2,10 +2,12 @@ package dao;
 
 import model.Contact;
 
+import java.util.Collection;
+
 public interface ContactDao {
     void saveContact(Contact contact);
 
-    Contact [] getAll();
+    Collection<Contact> getAll();
 
     void deleteByName(String name);
 
