@@ -3,6 +3,7 @@ package dao.impl;
 import dao.ContactDao;
 import model.Contact;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -21,10 +22,10 @@ public class ContactArrayDao implements ContactDao {
 
     @Override
     public Collection<Contact> getAll() {
-      //  if  {
-      //      return new Contact[];
-      //  }
-        Contact [] storeCopy = new Contact[store.length];
+        if (store.length == 0) {
+            return new ArrayList<>();
+        }
+        Contact[] storeCopy = new Contact[store.length];
         System.arraycopy(store, 0, storeCopy, 0, store.length);
         return Arrays.asList(storeCopy);
     }

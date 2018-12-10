@@ -1,19 +1,18 @@
 package services;
 
-import dao.impl.ContactArrayDao;
 import dao.ContactDao;
 import model.Contact;
 
-public class ContactService {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+public class ContactService {
     private ContactDao dao;
 
-    //private ContactDao dao = new ContactArrayDao();
-
-
-    public ContactService(ContactDao dao) { this.dao = dao;}
-
-
+    public ContactService(ContactDao dao) {
+        this.dao = dao;
+    }
 
     public void createContact(String firstName, String lastName, int age) {
         dao.saveContact(new Contact(firstName, lastName, age));
@@ -28,31 +27,31 @@ public class ContactService {
         dao.deleteByName(name);
     }
 
-    public Contact[] getContactsByName(String name) {
-        Contact[] allContacts = dao.getAll().toArray(new Contact[0]);
+    public Collection<Contact> getContactsByName(String name) {
+        Collection<Contact> allContacts = dao.getAll();
+        List<Contact> contactsWithName = new ArrayList<>();
 
-        for (int i = 0; i < allContacts.length; i++) {
-            Contact contact = allContacts[i];
-            if (contact != null
-                    && !contact.getFirstName().contains(name)
-                    && !contact.getLastName().contains(name)) {
-                allContacts[i] = null;
+        for (Contact contact : allContacts) {
+            if (contact == null) {
+                continue;
+            }
+            if (contact.getFirstName().contains(name)
+                    || contact.getLastName().contains(name)) {
+                contactsWithName.add(contact);
             }
         }
-        return allContacts;
+        return contactsWithName;
     }
 
+
     public void showAllContacts() {
-        Contact[] allContacts = dao.getAll().toArray(new Contact[0]);
-        if (allContacts.length == 0) {
-            System.out.println("There are no contacts");
-            return;
-        }
-        for (int i = 0; i < allContacts.length; i++) {
-            Contact currentContact = allContacts[i];
-            if (currentContact != null) {
-                System.out.println(allContacts[i]);
+        Collection<Contact> allContacts = dao.getAll();
+        for (Contact contact : allContacts) {
+            if (contact != null) {
+                System.out.println(contact);
             }
         }
     }
 }
+
+

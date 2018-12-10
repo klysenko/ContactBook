@@ -7,22 +7,18 @@ import services.ContactService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Collection;
 
 
-public class CommandLineService {
-
-
+class CommandLineService {
     private ContactService contactService;
     private BufferedReader br;
-   // private ContactService contactService = new ContactService();
-   // private BufferedReader br = new BufferedReader(new InputStreamReader(System.in);
     private AgeValidator ageValidator = new AgeValidator();
 
-    public CommandLineService (ContactService contactService, BufferedReader br) {
-       this.contactService = contactService;
-       this.br = br;
-   }
+    CommandLineService(ContactService contactService, BufferedReader br) {
+        this.contactService = contactService;
+        this.br = br;
+    }
 
     void run() throws IOException {
         String input;
@@ -105,11 +101,8 @@ public class CommandLineService {
 
     private void modifyContact() throws IOException {
         String name = readLine("Name: ");
-        Contact[] contacts = contactService.getContactsByName(name);
-        if (areContactsEmpty(contacts)) {
-            System.out.println("No contacts found");
-            return;
-        }
+        Collection<Contact> contacts = contactService.getContactsByName(name);
+
         for (Contact contact : contacts) {
             if (contact != null) {
                 System.out.println("Found contact:");
@@ -117,18 +110,9 @@ public class CommandLineService {
                 System.out.println();
             }
         }
+
         String newFirstName = readLine("New First Name: ");
         String newLastName = readLine("New Last Name: ");
         contactService.modifyContact(name, newFirstName, newLastName);
-    }
-
-    private boolean areContactsEmpty(Contact[] contacts) {
-        int i = 0;
-        for (Contact contact : contacts) {
-            if (contact == null) {
-                i++;
-            }
-        }
-        return contacts.length == i;
     }
 }
