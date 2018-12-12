@@ -1,5 +1,6 @@
 package services;
 
+import comparators.NameComparator;
 import dao.ContactDao;
 import model.Contact;
 
@@ -46,7 +47,9 @@ public class ContactService {
 
     public void showAllContacts() {
         Collection<Contact> allContacts = dao.getAll();
-        for (Contact contact : allContacts) {
+        List<Contact> list = new ArrayList<>(allContacts);
+        list.sort(new NameComparator());
+        for (Contact contact : list) {
             if (contact != null) {
                 System.out.println(contact);
             }
