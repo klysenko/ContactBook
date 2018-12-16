@@ -14,6 +14,13 @@ public class Contact {
         this.lastName = lastName;
     }
 
+    public Contact(int id, String firstName, String lastName, int age) {
+        this.id = id;
+        this.age = age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 
     public int getId() {
         return id;
@@ -65,9 +72,6 @@ public class Contact {
 
     @Override
     public String toString() {
-        return ("id='" + id + '\'' +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age='" + age + '\'');
+        return (id + " " + firstName + " " + lastName + " " + age);
     }
 }
